@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30516.212
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "az204-blobdemo", "az204-blobdemo.csproj", "{27AED7EF-A506-4F2C-90DC-3CB075C4CEB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27AED7EF-A506-4F2C-90DC-3CB075C4CEB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27AED7EF-A506-4F2C-90DC-3CB075C4CEB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27AED7EF-A506-4F2C-90DC-3CB075C4CEB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27AED7EF-A506-4F2C-90DC-3CB075C4CEB3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {91E089E4-F0AD-4A12-9984-C84BB8511377}
+	EndGlobalSection
+EndGlobal
