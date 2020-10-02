@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,7 +8,7 @@ namespace az204svcbusRec
 {
     class Program
     {
-        const string ServiceBusConnectionString = "<your_connection_string>";
+        const string ServiceBusConnectionString = "your_connection_string";
         const string QueueName = "az204-queue";
         static IQueueClient queueClient;
 
@@ -22,18 +21,6 @@ namespace az204svcbusRec
             // Register the queue message handler and receive messages in a loop
             RegisterOnMessageHandlerAndReceiveMessages();
 
-            Console.ReadKey();
-            await queueClient.CloseAsync();
-        }
-
-        static async Task MainAsync()
-        {
-            queueClient = new QueueClient(ServiceBusConnectionString, QueueName);
-            Console.WriteLine("======================================================");
-            Console.WriteLine("Press ENTER key to exit after receiving all the messages.");
-            Console.WriteLine("======================================================");
-            // Register the queue message handler and receive messages in a loop
-            RegisterOnMessageHandlerAndReceiveMessages();
             Console.ReadKey();
             await queueClient.CloseAsync();
         }

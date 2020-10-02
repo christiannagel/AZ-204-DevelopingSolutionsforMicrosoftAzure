@@ -1,31 +1,17 @@
-﻿using System;
+﻿using Microsoft.Azure.ServiceBus;
+using System;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.ServiceBus;
 
 namespace az204svcbusSend
 {
     class Program
     {
-        const string ServiceBusConnectionString = "<your_connection_string>";
+        const string ServiceBusConnectionString = "your_connection_string";
         const string QueueName = "az204-queue";
         static IQueueClient queueClient;
 
         static async Task Main(string[] args)
-        {
-            const int numberOfMessages = 10;
-            queueClient = new QueueClient(ServiceBusConnectionString, QueueName);
-            Console.WriteLine("======================================================");
-            Console.WriteLine("Press ENTER key to exit after sending all the messages.");
-            Console.WriteLine("======================================================");
-            // Send messages.
-            await SendMessagesAsync(numberOfMessages);
-            Console.ReadKey();
-            await queueClient.CloseAsync();
-        }
-
-        static async Task MainAsync()
         {
             const int numberOfMessages = 10;
             queueClient = new QueueClient(ServiceBusConnectionString, QueueName);
