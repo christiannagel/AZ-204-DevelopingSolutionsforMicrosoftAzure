@@ -17,24 +17,58 @@ namespace az204redisdemo
                     config.AddUserSecrets("2827e18d-dd3c-4a92-b8e4-fed4ef9ec6c0");
                 }).ConfigureServices(services =>
                 {
-
+                    services.AddTransient<Runner>();
                 }).Build();
 
-            var config = host.Services.GetRequiredService<IConfiguration>();
-            var connectionString = config["RedisConnection"];
-            using var cache = ConnectionMultiplexer.Connect(connectionString);
-            IDatabase db = cache.GetDatabase();
-            bool setValue = await db.StringSetAsync("test:key", "100");
+            var runner = host.Services.GetRequiredService<Runner>();
+            await runner.InitializeAsync();
+            await runner.SetValueAsync();
+            await runner.GetValueAsync();
+            await runner.PingAsync();
+        }
+    }
+
+    internal sealed class Runner : IDisposable
+    {
+        private readonly IConfiguration _configuration;
+        private ConnectionMultiplexer _cache;
+        private IDatabase _database;
+        public Runner(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public async Task InitializeAsync()
+        {
+            var connectionString = _configuration["RedisConnection"];
+            _cache = await ConnectionMultiplexer.ConnectAsync(connectionString);
+            _database = _cache.GetDatabase();
+        }
+
+        public async Task SetValueAsync()
+        {
+            bool setValue = await _database.StringSetAsync("test:key", "100");
             Console.WriteLine($"SET: {setValue}");
+        }
 
-            string getValue = await db.StringGetAsync("test:key");
+        public async Task GetValueAsync()
+        {
+            string getValue = await _database.StringGetAsync("test:key");
             Console.WriteLine($"GET: {getValue}");
+        }
 
-            var result = await db.ExecuteAsync("ping");
+        public async Task PingAsync()
+        {
+            var result = await _database.ExecuteAsync("ping");
             Console.WriteLine($"PING: {result.Type}: {result}");
 
-            result = await db.ExecuteAsync("flushdb");
-            Console.WriteLine($"PING: {result.Type}: {result}");
+            result = await _database.ExecuteAsync("flushdb");
+            Console.WriteLine($"FLUSH: {result.Type}: {result}");
+        }
+
+        public void Dispose()
+        {
+            _cache?.Dispose();
         }
     }
 }
